@@ -1,5 +1,9 @@
 # [John-Lemon-s-Haunted-Jaunt](https://learn.unity.com/project/john-lemon-s-haunted-jaunt-3d-beginner?language=ja)
 
+## Unityバージョン
+
+[2020.3.32f1](https://unity.com/ja/releases/editor/whats-new/2020.3.32#installs)
+
 ## アセットのインポート
 
 以下のリンクからアセットをインストールする  
