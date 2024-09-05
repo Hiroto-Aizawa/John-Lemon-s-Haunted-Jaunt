@@ -24,15 +24,14 @@ public class PlayerMovement : MonoBehaviour
     // 物理演算を実行するFixedUpdate関数
     void FixedUpdate()
     {
+        // 矢印操作でキャラクターを動かす
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
 
         //Vector3(x, y, z) に値をセットする
         m_Movement.Set(horizontal, 0f, vertical);
         // ベクトルの大きさを正規化（1に）する
-        // 移動ベクトルがX,Yがどちらも1の場合、ベクトルの長さが1より大きくなる（ピタゴラスの定理）
-        // キャラクターが1つの軸に沿って移動するよりも斜めに方向に速く移動することを意味する
-        // そうならないために、正規化を行いベクトルの方向を同じにして、その大きさを1にする
+        // 移動のベクトルの長さを1にして方向だけを表現する
         m_Movement.Normalize();
 
         // 水平方向の入力があるかを判断する
@@ -51,11 +50,14 @@ public class PlayerMovement : MonoBehaviour
         // transform.forwardからm_Movementを目指す。
         // turnSpeed * Time.deltaTimeで角度をマグニチュード0にする
         Vector3 desiredForward = Vector3.RotateTowards(transform.forward, m_Movement , turnSpeed * Time.deltaTime, 0f);
+        Debug.Log($"desiredForward: {desiredForward}");
 
         // 向きをdesiredForwardに回転させる
         m_Rotation = Quaternion.LookRotation(desiredForward);
     }
 
+    // Monobehaviour ルートモーションの適応方法を変更するための特別なメソッド
+    // アニメーションに合わせてキャラクターを細かく調整するためのもの
     private void OnAnimatorMove()
     {
         // RigidbodyコンポーネントのMovePositionを呼び出すために新しい位置を渡す
